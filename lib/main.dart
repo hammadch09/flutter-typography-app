@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/home_page.dart';
+import 'package:hello_world/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,14 +27,18 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  int currentPage = 1;
+  int currentPage = 0;
+  List<Widget> pages = const [
+    HomePage(),
+    ProfilePage(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Hello World'),
         ),
-        body: const HomePage(),
+        body: pages[currentPage],
         floatingActionButton: FloatingActionButton(
           onPressed: ({name = 'Add Floatin Button'}) {
             debugPrint(name);
@@ -44,9 +49,6 @@ class _RootPageState extends State<RootPage> {
           destinations: const [
             NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
             NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
-            NavigationDestination(icon: Icon(Icons.info), label: 'About'),
-            NavigationDestination(
-                icon: Icon(Icons.policy), label: 'Privacy Policy'),
           ],
           onDestinationSelected: (int index) {
             setState(() {
